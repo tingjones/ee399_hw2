@@ -243,7 +243,7 @@ Eigenvector: [0.02207542 0.03378819 0.04487476 ... 0.03025485 0.02850199 0.00941
 
 ### Problem E
 
-```json
+```
 [[-0.02384327  0.04535378  0.05653196 -0.04441826  0.03378603 -0.02207542]
  [-0.02576146  0.04567536  0.04709124 -0.05057969  0.01791442 -0.03378819]
  [-0.02728448  0.04474528  0.0362807  -0.05522219  0.00462854 -0.04487476]
@@ -258,7 +258,7 @@ Although not required, visualizing the vectors before finding the norm is helpfu
 
 Finally the norm of difference of absolute values between the two vectors is given, which appears to be incredibly small.
 
-```json
+```
 v1 from D:
  [-0.02384327 -0.02576146 -0.02728448 ... -0.02082937 -0.0193902
  -0.0166019 ]
@@ -277,7 +277,7 @@ Norm of difference of absolute values: 1.6670647475993934e-15
 
 ### Problem G
 The percentage of variance captured by each of the first six SVD modes is printed below. The modes are 1-based.
-```json
+```
 Mode 1: 77.677%
 Mode 2: 16.277%
 Mode 3: 2.734%
