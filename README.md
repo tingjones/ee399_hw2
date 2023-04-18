@@ -60,7 +60,7 @@ The procedure is discussed in this section. For the results, see [Computational 
 
 The "yalefaces" dataset was used for all problems, and the images were stored in matrix `X`, resulting in 2414 images of 1024 elements each, or a 1024x2414 array (Fig. 2).
 
-```
+```py
 # load data and save images into X
 results=loadmat('yalefaces.mat')
 X=results['X']
@@ -71,7 +71,7 @@ X=results['X']
 The objective of this task is to compute a 100x100 correlation matrix, `C`, between the first 100 images in the given dataset.
 This correlation is found by applying the dot product between the 100 images, which was accomplished with the `np.dot` function. As a result, the elements of `C` is the correlation between the image of its x-index, and the image of its y-index. This correlation matrix is then plotted using matplotlib's pcolor function.
 
-```
+```py
 # get first 100 images
 hundr = X[:, :100]
 C = np.ndarray((100, 100))
@@ -93,7 +93,7 @@ For this task, the two images that are most and least correlated are to be found
 
 Initially, just retrieving the most correlated images returns two of the same image, which makes sense, but to find correlation between two differing images, the next greatest correlation should be found.
 
-```
+```py
 # get the most correlated images
 most = np.argwhere(C == np.max(C))[0]
 
@@ -115,7 +115,7 @@ Here, the process from problem A is repeated, but with the given images (1-based
 
 The code is relatively similar to problem A, but with a 10x10 matrix `C` with only these images selected.
 
-```
+```py
 # array to store correlation between the ten images
 C = np.ndarray((10, 10))
 # find the correlation matrix
@@ -142,7 +142,7 @@ For this task, matrix `Y` is created with the equation in Fig. 3.
 
 Using `scipy.sparse.linalg.eigs` function, we can find the six largest eigenvalues and their corresponding eigenvectors across all images in the dataset. This is shown below.
 
-```
+```py
 Y = np.matmul(X, X.T)
 
 # eigenvalues stored in w
@@ -155,7 +155,7 @@ w, v = scipy.sparse.linalg.eigs(Y, k=6, which="LM")
 ### Problem E
 Here, the SVD for the dataset. The first six modes, or principle component directions is found and saved under `dir`.
 The SVD altogether returns the eigenvectors as rows or as columns and the root of the eigenvalues in diagonal matrix S.
-```
+```py
 # U are eigenvectors of AA^H, V are eigenvectors of A^H A
 # S = np.diag(s), eigenvalues are s**2
 u, s, vh = np.linalg.svd(X)
@@ -175,9 +175,9 @@ norm = np.linalg.norm(np.abs(v1) - np.abs(u1))
 ### Problem G
 Finally, the percentage of variance captured by each of the first six SVD modes was determined. This proportion was determined by dividing the eigenvalue by the sum of the eigenvalues. The variance of the data along an eigenvector is the eigenvalue corresponding to that eigenvector. Eigenvalues were found through the matrix `S`, where each value in the diagonal gives the eigenvalue through s<sup>2</sup>.
 
-```
+```py
 # finding eigenvalues
-var = s[:6] ** 2
+var = s[:6] ** 2 / dir.length()
 # determining percentage of variance
 prop_var = var/np.sum(var) * 100
 ```
@@ -221,7 +221,7 @@ The least correlated faces are from `2`, and `3`, which is at index `[1, 2]` in 
 ### Problem D
 Following the expectations of the prompt, the first six eigenvectors with the largest magnitude eigenvalue and printed below. By specifying `k=6` and `LM` in the `scipy.sparse.linalg.eigs` function, the six eigenvalues of Largest Magnitude are returned and can be printed directly from the returned array.
 
-```
+```py
 Eigenvalue: 234020.45485388613
 Eigenvector: [-0.02384327 -0.02576146 -0.02728448 ... -0.02082937 -0.0193902
  -0.0166019 ]
@@ -243,7 +243,7 @@ Eigenvector: [0.02207542 0.03378819 0.04487476 ... 0.03025485 0.02850199 0.00941
 
 ### Problem E
 
-```
+```json
 [[-0.02384327  0.04535378  0.05653196 -0.04441826  0.03378603 -0.02207542]
  [-0.02576146  0.04567536  0.04709124 -0.05057969  0.01791442 -0.03378819]
  [-0.02728448  0.04474528  0.0362807  -0.05522219  0.00462854 -0.04487476]
@@ -258,7 +258,7 @@ Although not required, visualizing the vectors before finding the norm is helpfu
 
 Finally the norm of difference of absolute values between the two vectors is given, which appears to be incredibly small.
 
-```
+```json
 v1 from D:
  [-0.02384327 -0.02576146 -0.02728448 ... -0.02082937 -0.0193902
  -0.0166019 ]
@@ -277,7 +277,7 @@ Norm of difference of absolute values: 1.6670647475993934e-15
 
 ### Problem G
 The percentage of variance captured by each of the first six SVD modes is printed below. The modes are 1-based.
-```
+```json
 Mode 1: 77.677%
 Mode 2: 16.277%
 Mode 3: 2.734%
