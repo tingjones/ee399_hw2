@@ -53,7 +53,9 @@ With the dot product, two vectors that are the same have a result of 1, and two 
 
 When applying the dot product to a set of images, the result is a 2D array, where each index is the correlation between the two corresponding images for that index. Larger values in this correlation matrix represent images that were evaluated by the dot product to share more features, while smaller values indicate less shared features.
 
-To find the shared features among the faces in the dataset, the SVD can be used. The SVD, or Singular Value Decomposition, will factorize a 2D matrix. For `np.svd`, the SVD returns the eigenvectors as rows in `U`, the singular values, or the root of the eigenvalues, in the diagonal matrix `S`, and the eigenvectors as columns in `V`. Plotting the eigenvectors for the largest found eigenvalues will visualize the feature space for the most prominant elements of each of the given images, which is done below.
+To find the shared features among the faces in the dataset, the SVD, or Singular Value Decomposition, can be applied. The SVD will factorize a 2D matrix <i>A</i> into three pieces, the first being <i>U</i>, the left singular vectors, <i>Σ</i>, the singular values, and <i>V<sup> T </sup></i>, where V contains the right singular vectors.
+
+The SVD can be applied using the `np.svd` function, which returns `U`, the left singular vectors as above, `S`, the singular values or the root of the eigenvalues (Σ in the SVD function), and the right singular vectors as `V`. Plotting the vectors for the largest found eigenvalues will visualize the feature space for the most prominant elements of each of the given images, which is done below.
 
 ## Algorithm Implementation and Development
 The procedure is discussed in this section. For the results, see [Computational Results](#computational-results).
@@ -155,9 +157,13 @@ w, v = scipy.sparse.linalg.eigs(Y, k=6, which="LM")
 ### Problem E
 Here, the SVD for the dataset. The first six modes, or principle component directions is found and saved under `dir`.
 The SVD altogether returns the eigenvectors as rows or as columns and the root of the eigenvalues in diagonal matrix S.
+
+U are eigenvectors of <i>X X<sup>T</sup></i>, V are the eigenvectors of <i>X<sup>T</sup> X</i>.
+S is the list of values in the diagonal matrix `(S = np.diag(s))`, where the eigenvalues are found with s<sup>2</sup>.
+
+Since the rows of matrix U correspond to the rows of X, our data matrix, and the columns are the ordered eigenvectors of X X<sup>T</sup>, we can retrieve the first six principle directions with the first six columns of matrix U.
+
 ```py
-# U are eigenvectors of AA^H, V are eigenvectors of A^H A
-# S = np.diag(s), eigenvalues are s**2
 u, s, vh = np.linalg.svd(X)
 dir = u[:, :6]
 ```
